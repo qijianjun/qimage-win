@@ -13,7 +13,7 @@
 
 ---
 
-![](https://github.com/jiwenxing/qiniu-image-tool-win/blob/master/res/qimage.png?raw=true)
+![](https://raw.githubusercontent.com/jiwenxing/qimage-win/master/res/qimge.png)
 
 # About
 
@@ -49,10 +49,18 @@ qimage-win 是 windows 版本的 markdown 一键贴图工具，支持本地文�
 
 ## qshell下载
 仓库中不再包含qshell，请从以下链接自行最新版本：
-<a href="http://devtools.qiniu.com/qshell-v2.3.6.zip">qshell v2.3.6官方链接 | 含Mac OSX, Linux, Windows各版本的压缩包</a><br/>
+
+<a href="http://devtools.qiniu.com/qshell-v2.3.6.zip">qshell v2.3.6官方链接 | 含Mac OSX, Linux, Windows各版本的压缩包</a>
+
 如果官方下载速度慢，可从以下链接下载解压后的windows版执行文件：
-<a href="https://eagent.ctfile.com/fs/20035996-371697665" target="_blank">qshell_windows_x64_v2.3.6.exe</a><br/>
-<a href="https://eagent.ctfile.com/fs/20035996-371697707" target="_blank">qshell_windows_x86_v2.3.6.exe</a><br/>
+
+<a href="https://eagent.ctfile.com/fs/20035996-371697665" target="_blank">qshell_windows_x64_v2.3.6.exe</a>
+
+<a href="https://eagent.ctfile.com/fs/20035996-371697707" target="_blank">qshell_windows_x86_v2.3.6.exe</a>
+
+↓↓↓以下↓↓↓为<a href="https://github.com/jiwenxing/qimage-win" target="_blank">原版</a>说明。
+
+---
 
 # Usage
 
