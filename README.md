@@ -3,7 +3,7 @@
     	<img src="https://img.shields.io/badge/platform-win--32%20%7C%20win--64-lightgrey.svg">
     </a>
     <a target="_blank" href="https://github.com/qijianjun/qiniu-image-tool-win/archive/v2.2.zip" title="download">
-    	<img src="https://img.shields.io/badge/download-5.06M%20v2.0-yellowgreen.svg">
+    	<img src="https://img.shields.io/badge/download-821.1K%20v2.2-yellowgreen.svg">
     </a>
     <a target="_blank" href="https://opensource.org/licenses/MIT" title="License: MIT">
     	<img src="https://img.shields.io/badge/License-MIT-blue.svg">
