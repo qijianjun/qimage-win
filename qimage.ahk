@@ -25,6 +25,21 @@ CHANGE LOG
 支持日志，保存源文件路径-CDN路径-时间-hash-filesize-mimetype信息；
 */
 
+if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
+{
+    try ; leads to having the script re-launching itself as administrator
+    {
+        if A_IsCompiled
+            Run *RunAs "%A_ScriptFullPath%" /restart
+        else
+            Run *RunAs "%A_AhkPath%" /restart "%A_ScriptFullPath%"
+            MsgBox, 已经以管理员身份重新运行
+    } Catch, e {
+      MsgBox, 发生错误：%e%，程序将退出
+      ExitApp
+    }
+}
+
 WORKING_DIR = %A_ScriptDir%\
 SetWorkingDir, %WORKING_DIR%
 Menu,Tray,Icon, qimage.ico, , 1
@@ -78,15 +93,19 @@ Menu,Tray,Icon, qimage.ico, , 1
     }
 
     ; name the file
-    if (A_ThisHotkey == "^+V" && srcpath) {
-        if (isFetch) {
+    if (A_ThisHotkey == "^+V") {
+        if (isFetch == 1) {
             filepath := http_matches1
-        } else {
+        } else if (srcpath != "ScreenShot") {
             filepath := SubStr(StrReplace(srcpath, "\", "/", replaceCount), 4)
+        } else {
+            filepath := ""
         }
         Gosub, PromptName
         WinWait, 指定云上文件的保存路径
         WinWaitClose
+        if (filepath == "")
+            Return
         StringSplit, ColorArray, filepath, `.  ; split by '.'
         maxIndex := ColorArray0  ; get array lenth
         ;;;;; get file type by extension
@@ -103,13 +122,15 @@ Menu,Tray,Icon, qimage.ico, , 1
         filePrefix =  %A_yyyy%%A_MM%%A_DD%%A_Hour%%A_Min%_%rand%
         fileType := "png"
     }
+
+    ; upload / fetch
     if (isFetch == 1) {
         Gosub, AddUser
         key := Trim(BUCKET_PATH . filePrefix . "." . fileType, " `t./\")
         RunWait, %comspec% %isDebug% qshell user cu %USERNAME% && qshell fetch "%srcpath%" %BUCKET_NAME% -k %key% > qimage-result.txt
         if (check_result("fetch") == 0)
             Return
-    } else if (srcpath) {
+    } else if (srcpath != "ScreenShot") {
         ; MsgBox, probably file in srcpath
         key := Trim(BUCKET_PATH . filePrefix . "." . fileType, " `t./\")
         Gosub, AddUser
@@ -168,9 +189,16 @@ Gui, Add, Button, default gUpload, 确定上传
 Gui, Show,, 指定云上文件的保存路径
 Return
 
+#IfWinActive, 指定云上文件的保存路径
+GuiEscape:
+    filepath := ""
+    Gui, Destroy
+Return
+#IfWinActive
+
 Upload:
 Gui, Submit
-Filepath := Trim(Filepath, " `t`n/")
+filepath := Trim(filepath, " `t`n/")
 Gui, destroy
 
 check_result(action) {
